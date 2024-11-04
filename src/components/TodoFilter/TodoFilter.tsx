@@ -1,28 +1,35 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from 'react';
 import { ITodoFilter } from '../../types/Todo';
+import {
+  DEFAULT_FILTER_STATE,
+  TODO_FILTER_OPTIONS,
+} from '../../constants/TodoFilter';
+import { Filter_Statuses } from '../../utils/enums/FiltersStatus';
 
 interface IProps {
-  setTodosFilter: (filter: ITodoFilter) => void;
+  todosFilter: ITodoFilter;
+  setTodosFilter: Dispatch<SetStateAction<ITodoFilter>>;
 }
 
-export const TodoFilter: FC<IProps> = ({ setTodosFilter }) => {
-  const [status, setStatus] = useState('');
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    setTodosFilter({ status, filter });
-  }, [status, filter]);
+export const TodoFilter: FC<IProps> = ({ setTodosFilter, todosFilter }) => {
+  const { filter, status } = todosFilter;
 
   const handleChangeFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    setFilter(event.target.value.toLowerCase());
+    setTodosFilter(prevState => ({
+      ...prevState,
+      filter: event.target.value.toLowerCase().trim(),
+    }));
   };
 
   const handleChangeStatus = (event: ChangeEvent<HTMLSelectElement>) => {
-    setStatus(event.target.value);
+    setTodosFilter(prevState => ({
+      ...prevState,
+      status: event.target.value as Filter_Statuses,
+    }));
   };
 
   const handleClearFilter = () => {
-    setFilter('');
+    setTodosFilter(DEFAULT_FILTER_STATE);
   };
 
   return (
@@ -34,9 +41,11 @@ export const TodoFilter: FC<IProps> = ({ setTodosFilter }) => {
             value={status}
             onChange={handleChangeStatus}
           >
-            <option value="all">All</option>
-            <option value="active">Active</option>
-            <option value="completed">Completed</option>
+            {TODO_FILTER_OPTIONS.map(({ value, title, id }) => (
+              <option value={value} key={id}>
+                {title}
+              </option>
+            ))}
           </select>
         </span>
       </p>

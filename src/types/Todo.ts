@@ -1,3 +1,5 @@
+import { Filter_Statuses } from '../utils/enums/FiltersStatus';
+
 export interface Todo {
   id: number;
   title: string;
@@ -6,6 +8,6 @@ export interface Todo {
 }
 
 export interface ITodoFilter {
-  status: string;
+  status: Filter_Statuses;
   filter: string;
 }

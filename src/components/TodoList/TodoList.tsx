@@ -30,6 +30,7 @@ export const TodoList: React.FC<IProps> = ({
     <tbody>
       {todos.map(todo => {
         const { id, completed, title } = todo;
+
         return (
           <tr data-cy="todo" className="" key={id}>
             <td className="is-vcentered">{id}</td>

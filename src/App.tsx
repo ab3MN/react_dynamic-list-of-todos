@@ -10,15 +10,14 @@ import { Loader } from './components/Loader';
 import { ITodoFilter, Todo } from './types/Todo';
 import { getTodos } from './api';
 import { getFiltredTodo } from './utils/filterTodo';
+import { DEFAULT_FILTER_STATE } from './constants/TodoFilter';
 
 export const App: React.FC = () => {
   const [isLoading, setLoading] = useState(true);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [selectedTodo, setselectedTodo] = useState<null | Todo>(null);
-  const [todosFilter, setTodosFilter] = useState<ITodoFilter>({
-    status: '',
-    filter: '',
-  });
+  const [todosFilter, setTodosFilter] =
+    useState<ITodoFilter>(DEFAULT_FILTER_STATE);
 
   const filtredTodos = useMemo(
     () => getFiltredTodo(todos, todosFilter),
@@ -35,7 +34,7 @@ export const App: React.FC = () => {
         // eslint-disable-next-line no-console
         console.log(e.message);
       });
-  }, [getTodos]);
+  }, []);
 
   const closeModal = () => setselectedTodo(null);
 
@@ -47,7 +46,10 @@ export const App: React.FC = () => {
             <h1 className="title">Todos:</h1>
 
             <div className="block">
-              <TodoFilter setTodosFilter={setTodosFilter} />
+              <TodoFilter
+                setTodosFilter={setTodosFilter}
+                todosFilter={todosFilter}
+              />
             </div>
 
             <div className="block">
