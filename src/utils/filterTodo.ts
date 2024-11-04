@@ -1,5 +1,5 @@
 import { ITodoFilter, Todo } from '../types/Todo';
-import { Filter_Statuses } from './enums/FiltersStatus';
+import { FilterStatuses } from './enums/FiltersStatus';
 
 export const getFiltredTodo = (
   todos: Todo[],
@@ -11,9 +11,9 @@ export const getFiltredTodo = (
 
   filteredTodos = filteredTodos.filter(({ completed }) => {
     switch (status) {
-      case Filter_Statuses.Active:
+      case FilterStatuses.Active:
         return !completed;
-      case Filter_Statuses.Completed:
+      case FilterStatuses.Completed:
         return completed;
       default:
         return true;

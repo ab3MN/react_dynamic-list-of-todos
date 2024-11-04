@@ -1,4 +1,4 @@
-import { Filter_Statuses } from '../utils/enums/FiltersStatus';
+import { FilterStatuses } from '../utils/enums/FiltersStatus';
 
 export const TODO_FILTER_OPTIONS = [
   { value: 'all', title: 'All', id: 1 },
@@ -7,6 +7,6 @@ export const TODO_FILTER_OPTIONS = [
 ];
 
 export const DEFAULT_FILTER_STATE = {
-  status: Filter_Statuses.All,
+  status: FilterStatuses.All,
   filter: '',
 };

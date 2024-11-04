@@ -1,10 +1,10 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from 'react';
+import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react';
 import { ITodoFilter } from '../../types/Todo';
 import {
   DEFAULT_FILTER_STATE,
   TODO_FILTER_OPTIONS,
 } from '../../constants/TodoFilter';
-import { Filter_Statuses } from '../../utils/enums/FiltersStatus';
+import { FilterStatuses } from '../../utils/enums/FiltersStatus';
 
 interface IProps {
   todosFilter: ITodoFilter;
@@ -24,13 +24,11 @@ export const TodoFilter: FC<IProps> = ({ setTodosFilter, todosFilter }) => {
   const handleChangeStatus = (event: ChangeEvent<HTMLSelectElement>) => {
     setTodosFilter(prevState => ({
       ...prevState,
-      status: event.target.value as Filter_Statuses,
+      status: event.target.value as FilterStatuses,
     }));
   };
 
-  const handleClearFilter = () => {
-    setTodosFilter(DEFAULT_FILTER_STATE);
-  };
+  const handleClearFilter = () => setTodosFilter(DEFAULT_FILTER_STATE);
 
   return (
     <form className="field has-addons">
